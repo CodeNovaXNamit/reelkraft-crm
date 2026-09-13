@@ -6,10 +6,10 @@ import type { Employee } from "@/types/domain";
 
 export function assertWorkspaceEmail(email: string, verified: boolean) {
   const normalized = email.toLowerCase();
-  if (!verified || !normalized.endsWith("@reelkraftmedia.online")) {
+  if (!verified || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
     throw new ApplicationError(
       "AUTHORIZATION_ERROR",
-      "Use a verified Reelkraft Google Workspace account.",
+      "Use a verified Google account.",
     );
   }
 

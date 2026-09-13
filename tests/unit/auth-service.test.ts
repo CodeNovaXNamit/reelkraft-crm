@@ -1,22 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { assertWorkspaceEmail } from "@/services/auth-service";
 
-describe("Google Workspace auth rules", () => {
-  it("accepts verified Reelkraft Workspace email", () => {
-    expect(assertWorkspaceEmail("Shivam@ReelkraftMedia.Online", true)).toBe(
-      "shivam@reelkraftmedia.online",
-    );
+describe("Google auth rules", () => {
+  it("accepts any verified Google email", () => {
+    expect(assertWorkspaceEmail("User@Example.com", true)).toBe("user@example.com");
   });
 
   it("rejects unverified Google email", () => {
     expect(() => assertWorkspaceEmail("shivam@reelkraftmedia.online", false)).toThrow(
-      "verified Reelkraft",
+      "verified Google",
     );
   });
 
-  it("rejects non-Reelkraft domains", () => {
-    expect(() => assertWorkspaceEmail("person@example.com", true)).toThrow(
-      "verified Reelkraft",
-    );
+  it("rejects values without an email address", () => {
+    expect(() => assertWorkspaceEmail("person", true)).toThrow("verified Google");
   });
 });
